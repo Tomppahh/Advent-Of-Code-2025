@@ -33,8 +33,16 @@ const readFiletoArray = (filePath: string): string[] => {
 
 const filePath = "./data/datafile.txt";
 const fileDataArray = readFiletoArray(filePath);
-
 let sumOfInvalids: number = 0;
+
+const partTwoChecker = (s: string): boolean => {
+	if (!s) return false;
+	return (s + s).slice(1, -1).includes(s);
+	// note, i googled how to check for repeated substrings in a string
+	// found this page and referenced it in this function!:
+	// https://www.techiedelight.com/check-string-for-repeated-substrings/
+};
+console.log(`Final  total: ${sumOfInvalids}`);
 
 fileDataArray.forEach((element) => {
 	const [start, end] = element.split("-");
@@ -43,6 +51,15 @@ fileDataArray.forEach((element) => {
 
 	for (let num = firstNum; num <= secondNum; num++) {
 		const numStr = num.toString();
+		if (partTwoChecker(numStr)) {
+			sumOfInvalids += num;
+			console.log(
+				`PARTTWOCHECKER Invalid ID found: ${num} | Total sum now: ${sumOfInvalids}`
+			);
+			continue;
+		}
+
+		// this is part 1 underneath this comment and we dont reach it after partTwo code.
 		if (numStr.length % 2 !== 0) continue;
 		const half: number = Math.floor(numStr.length / 2);
 		const first: string = numStr.slice(0, half);
@@ -53,4 +70,3 @@ fileDataArray.forEach((element) => {
 		}
 	}
 });
-console.log(`Final total: ${sumOfInvalids}`);
