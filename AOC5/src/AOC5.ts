@@ -27,10 +27,19 @@ for (let i = dataGrid.length - 1; i >= 0; i--) {
 
 console.log(`rangeArray content: ${rangeArray} | ID Arraycontent ${IDArray}`);
 
-const splitRanges = rangeArray.map((r) => r.split("-"));
-console.log(`splitRanges content: ${splitRanges}`);
+const splitRanges = rangeArray.map((r) => r.split("-").map(Number));
 
-let A: number = 0;
-let B: number = A + 1;
+function isItinRange(IDs: number[], rangeArray: number[][]): number {
+	let freshCount = 0;
+	for (const [A, B] of rangeArray) {
+		for (let i = IDs.length - 1; i >= 0; i--) {
+			if (IDs[i] >= A && IDs[i] <= B) {
+				IDs.splice(i, 1);
+				freshCount++;
+			}
+		}
+	}
+	return freshCount;
+}
 
-const range = { A, B };
+console.log(`isItinRange returns: ${isItinRange(IDArray, splitRanges)}`);
