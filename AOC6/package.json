@@ -1,0 +1,16 @@
+{
+	"name": "aoc6",
+	"version": "1.0.0",
+	"description": "",
+	"main": "AOC6.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "tsc-watch --onSuccess \"node dist/AOC6.js\""
+	},
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"tsc-watch": "^7.2.0",
+		"typescript": "^5.9.3"
+	}
+}
