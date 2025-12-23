@@ -23,7 +23,7 @@ for (let i = dataGrid.length - 1; i >= 0; i--) {
         IDArray.push(dataGridonlyIDS[i]);
     }
 }
-console.log(`rangeArray content: ${rangeArray} | ID Arraycontent ${IDArray}`);
+// console.log(`rangeArray content: ${rangeArray} | ID Arraycontent ${IDArray}`);
 const splitRanges = rangeArray.map((r) => r.split("-").map(Number));
 function isItinRange(IDs, rangeArray) {
     let freshCount = 0;
@@ -37,4 +37,32 @@ function isItinRange(IDs, rangeArray) {
     }
     return freshCount;
 }
-console.log(`isItinRange returns: ${isItinRange(IDArray, splitRanges)}`);
+console.log(`Part one: ${isItinRange(IDArray, splitRanges)}`);
+// merge intervals problem
+function partTwo(ranges) {
+    // Sort ranges by start number
+    ranges.sort((a, b) => a[0] - b[0]);
+    let count = 0;
+    let [A, B] = ranges[0]; // Start with first range
+    for (let i = 1; i < ranges.length; i++) {
+        const [newA, newB] = ranges[i];
+        if (newA > B + 1) {
+            // add the previous range to count, start new one
+            count += B - A + 1;
+            [A, B] = [newA, newB];
+        }
+        else {
+            // check if newB range is > B, if yes update B
+            B = Math.max(B, newB);
+        }
+    }
+    // Add the last range
+    count += B - A + 1;
+    return count;
+}
+try {
+    console.log(`Part two: ${partTwo(splitRanges)}`);
+}
+catch (e) {
+    console.error("Error:", e);
+}
