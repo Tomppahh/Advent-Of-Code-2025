@@ -1,0 +1,2 @@
+# Ignore all data folders in AOCx directories
+AOC*/data/
